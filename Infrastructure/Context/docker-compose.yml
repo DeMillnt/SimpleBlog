@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  blog:
+    image: ${DOCKER_REGISTRY-}blog
+    build:
+      context: .
+      dockerfile: Blog/Dockerfile
+  db:
+    image: postgres
+    environment: 
+        POSTGRES_PASSWORD: password
+    ports: 
+    - "5432:5432"
+    volumes:
+    - ./postgres-data:/var/lib/postgresql/data
