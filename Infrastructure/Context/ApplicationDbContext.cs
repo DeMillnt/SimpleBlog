@@ -13,5 +13,14 @@ namespace Infrastructure.Context
         {
             optionsBuilder.UseNpgsql("Host=db;Port=5432;Database=simpleBlogDb;Username=postgres;Password=password");
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Post>()
+                .HasOne<IdentityUser>()
+                .WithMany()
+                .HasForeignKey(p => p.UserId);
+        }
     }
 }
