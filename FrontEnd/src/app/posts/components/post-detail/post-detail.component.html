@@ -1,0 +1,16 @@
+<mat-card *ngIf="!!post">
+    <mat-card-title>
+        <div class="d-flex justify-content-between">
+            <div>
+                {{post.title}}
+            </div>
+            <div>
+                <app-post-action *ngIf="post.userId == profileService.userId" [postId]="post.id" (onRemoved)="navigateToHome()">
+                </app-post-action>
+            </div>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        {{post.content}}
+    </mat-card-content>
+</mat-card>

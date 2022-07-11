@@ -31,7 +31,7 @@ namespace Infrastructure.Services
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user is null)
             {
-                throw new Exception($"user {request.UserName} already exists");
+                throw new Exception($"user {request.UserName} doesn't exists");
             }
 
             var roles = await _userManager.GetRolesAsync(user);
@@ -39,7 +39,9 @@ namespace Infrastructure.Services
 
             return new()
             {
-                Token = new JwtSecurityTokenHandler().WriteToken(GetToken(claims))
+                Token = new JwtSecurityTokenHandler().WriteToken(GetToken(claims)),
+                UserName = request.UserName,
+                UserId = user.Id
             };
         }
 
@@ -65,7 +67,9 @@ namespace Infrastructure.Services
 
             return new()
             {
-                Token = new JwtSecurityTokenHandler().WriteToken(GetToken(claims))
+                Token = new JwtSecurityTokenHandler().WriteToken(GetToken(claims)),
+                UserName = request.UserName,
+                UserId = newUser.Id
             };
         }
 

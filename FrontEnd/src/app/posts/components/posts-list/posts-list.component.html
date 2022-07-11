@@ -1,0 +1,21 @@
+<mat-card class="mt-4" *ngFor="let post of posts">
+    <mat-card-title>
+        <div class="d-flex justify-content-between">
+            <div class="cursor-pointer" (click)="redirectToPostDetail(post.id)">
+                {{post.title}}
+            </div>
+            <app-post-action *ngIf="post.userId == profileService.userId" [postId]="post.id" (onRemoved)="loadPosts()">
+            </app-post-action>
+        </div>
+    </mat-card-title>
+    <mat-card-content (click)="redirectToPostDetail(post.id)" class="cursor-pointer">
+        {{post.content}}
+    </mat-card-content>
+</mat-card>
+
+<mat-paginator [length]="total"
+              [pageSize]="pageRequest.pageSize"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page"
+              (page)="paginatorChanged($event)">
+</mat-paginator>

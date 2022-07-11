@@ -24,7 +24,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("sign-in")]
-        public async Task<IActionResult> SignIn(SignInRequest request)
+        public async Task<IActionResult> SignIn([FromQuery] SignInRequest request)
         {
             return Ok(await _authService.SignIn(request));
         }

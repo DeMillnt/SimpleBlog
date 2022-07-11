@@ -1,0 +1,24 @@
+<form [formGroup]="signInForm" class="d-table mx-auto">
+    <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <mat-error *ngIf="signInForm.get('username')?.invalid">
+            {{errorMessageService.getErrorMessage(signInForm, 'username')}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" id="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signInForm.get('password')?.invalid">
+            {{errorMessageService.getErrorMessage(signInForm, 'password')}}</mat-error>
+    </mat-form-field>
+
+    <div class="col-12">
+        <button [disabled]="!signInForm.valid" (click)="signIn()" mat-raised-button color="primary">Sign in</button>
+    </div>
+
+</form>

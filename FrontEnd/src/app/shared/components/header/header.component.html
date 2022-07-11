@@ -1,0 +1,27 @@
+<mat-toolbar class="justify-content-between">
+    <span class="cursor-pointer" [routerLink]="['/']">Simple blog</span>
+
+    <div *ngIf="!profileService.isAuthorized; else authorized">
+        <button mat-icon-button [routerLink]="['auth/sign-in']">
+            <mat-icon>login</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['auth/sign-up']">
+            <mat-icon>person add</mat-icon>
+        </button>
+    </div>
+    <ng-template #authorized>
+        <div>
+            <button [routerLink]="['create-or-update-post']" mat-icon-button>
+                <mat-icon>note add</mat-icon>
+            </button>
+            <button (click)="profileService.logout()" mat-icon-button>
+                <mat-icon>logout</mat-icon>
+            </button>
+        </div>
+    </ng-template>
+</mat-toolbar>
+<!-- 
+//logout
+//login
+//person add 
+-->

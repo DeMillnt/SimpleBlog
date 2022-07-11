@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Post;
+﻿using Application.DTOs;
+using Application.DTOs.Post;
 using Application.Interfaces;
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -26,9 +27,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPosts(int pageIndex = 0, int pageSize = 10, CancellationToken token = default)
+        public async Task<IActionResult> GetPosts([FromQuery] PageRequest pageRequest, CancellationToken token = default)
         {
-            return Ok(await _postService.GetPostsAsync(pageIndex, pageSize, token));
+            return Ok(await _postService.GetPostsAsync(pageRequest, token));
         }
 
         [HttpGet("post")]
