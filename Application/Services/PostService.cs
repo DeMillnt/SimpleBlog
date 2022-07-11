@@ -34,9 +34,12 @@ namespace Infrastructure.Services
             return _db.Posts.ProjectTo<PostModel>(PostProfile.GetConfiguration()).FirstAsync(p => p.Id == postId, cancellation);
         }
 
-        public async Task<PageResponse<PostModel>> GetPostsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
+        public async Task<PageResponse<PostModel>> GetPostsAsync(PageRequest request, CancellationToken cancellationToken)
         {
-            var posts = _db.Posts.AsQueryable().Skip(pageIndex * pageSize).Take(pageSize);
+            var posts = _db.Posts.AsQueryable()
+                .OrderByDescending(p => p.CreatedDate)
+                .Skip(request.PageIndex * request.PageSize)
+                .Take(request.PageSize);
             return new()
             {
                 Total = await posts.CountAsync(cancellationToken),
