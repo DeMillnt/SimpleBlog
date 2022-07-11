@@ -21,6 +21,11 @@ namespace Infrastructure.Context
                 .HasOne<IdentityUser>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
+
+            builder.Entity<Post>()
+                .Property(p => p.CreatedDate)
+                .HasColumnType("datetime2")
+                .HasPrecision(0);
         }
     }
 }
