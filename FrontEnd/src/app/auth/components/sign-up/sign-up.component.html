@@ -1,0 +1,35 @@
+<form [formGroup]="signUpForm" class="d-table mx-auto">
+    <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <mat-error *ngIf="signUpForm.get('username')?.invalid">
+            {{errorMessageService.getErrorMessage(signUpForm, 'username')}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" id="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signUpForm.get('password')?.invalid">
+            {{errorMessageService.getErrorMessage(signUpForm, 'password')}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Confirm password</mat-label>
+        <input matInput [type]="hideConfirm ? 'password' : 'text'" formControlName="confirmPassword">
+        <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideConfirm">
+            <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signUpForm.get('confirmPassword')?.invalid">
+            {{errorMessageService.getErrorMessage(signUpForm, 'confirmPassword')}}</mat-error>
+    </mat-form-field>
+
+    <div class="col-12">
+        <button [disabled]="!signUpForm.valid" (click)="signUp()" mat-raised-button color="primary">Sign up</button>
+    </div>
+
+</form>
